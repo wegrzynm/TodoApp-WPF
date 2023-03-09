@@ -1,0 +1,35 @@
+﻿<Page x:Class="TodoApp.View.AddList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:TodoApp.View"
+      mc:Ignorable="d"
+      Title="AddList" Height="450" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        
+        <Button Content="Go back" Command="{Binding GoBackCommand}"/>
+        
+        <StackPanel Grid.Row="1" Height="100*">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
+                
+                <Label Grid.Row="0" Content="Add new List title" VerticalAlignment="Center" HorizontalAlignment="Center" Height="100*"></Label>
+                
+                <TextBox Grid.Row="1"  Width="100*" Height="100*" FontSize="30"/>
+            </Grid>
+        </StackPanel>
+        
+        <Button Grid.Row="2" Content="Add new List" Command="{Binding GoBackCommand}"/>
+        
+        
+    </Grid>
+</Page>

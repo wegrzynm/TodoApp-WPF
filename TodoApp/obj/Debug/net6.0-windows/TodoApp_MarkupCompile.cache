@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\App.xaml
-4547924812
+72027694001
 
-15-1744737051
+19558179877
 195249764867
-MainWindow.xaml;View\LoginPage.xaml;View\TasksPage.xaml;View\TODOListsPage.xaml;
+MainWindow.xaml;Styles\Button.xaml;View\AddListPage.xaml;View\AddTasksPage.xaml;View\LoginPage.xaml;View\TasksPage.xaml;View\TODOListsPage.xaml;
 
-False
+True
 
