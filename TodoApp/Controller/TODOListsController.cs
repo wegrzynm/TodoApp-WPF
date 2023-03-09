@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
@@ -34,7 +33,6 @@ public class TODOListsController : INotifyPropertyChanged
     }
 
     private ICommand _showTasksCommand;
-    
     public ICommand ShowTasksCommand
     {
         get
@@ -44,6 +42,36 @@ public class TODOListsController : INotifyPropertyChanged
                 _showTasksCommand = new RelayCommand(this.ShowTasks);
             }
             return _showTasksCommand;
+        }
+    }
+    
+    private ICommand _addListCommand;
+    
+    public ICommand AddListCommand
+    {
+        get
+        {
+            if (_addListCommand == null)
+            {
+                _addListCommand = new RelayCommand(
+                    param => this.AddList()
+                );
+            }
+            return _addListCommand;
+        }
+    }
+    
+    private ICommand _deleteTaskCommand;
+    
+    public ICommand DeleteTaskCommand
+    {
+        get
+        {
+            if (_deleteTaskCommand == null)
+            {
+                _deleteTaskCommand = new RelayCommand(this.DeleteList);
+            }
+            return _deleteTaskCommand;
         }
     }
 
@@ -56,7 +84,7 @@ public class TODOListsController : INotifyPropertyChanged
     {
         var httpClient = new HttpClient();
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", API.token);
-        var httpResponse = await httpClient.GetAsync($"{API.requestURI}todo-lists/12");
+        var httpResponse = await httpClient.GetAsync($"{API.requestURI}todo-lists");
         if (httpResponse.IsSuccessStatusCode)
         {
             try
@@ -65,13 +93,13 @@ public class TODOListsController : INotifyPropertyChanged
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<TODOList>));
                 using (MemoryStream ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(responseContent)))
                 {
-                    this.TodoLists = (List<TODOList>)serializer.ReadObject(ms);
+                    TodoLists = (List<TODOList>)serializer.ReadObject(ms);
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Error", MessageBoxButton.OK);
-                this.TodoLists = new List<TODOList>();
+                TodoLists = new List<TODOList>();
             }
         }
         else
@@ -83,14 +111,45 @@ public class TODOListsController : INotifyPropertyChanged
     private void ShowTasks(object obj)
     {
         //TODO - Find better solution
-        if (obj is List<Task>)
+        if (obj is TODOList)
         {
-            List<Task> tasks = (List<Task>)obj;
+            TODOList todoList = (TODOList)obj;
             Frame mainFrame = (Frame)Application.Current.MainWindow.FindName("MainFrame");
-            mainFrame.Content = new TasksPage(new TasksController(tasks));
+            mainFrame.Content = new TasksPage(new TasksController(todoList));
+        }
+    }
+    
+    private async void DeleteList(object obj)
+    {
+        if (obj is TODOList)
+        {
+            TODOList todoList = (TODOList)obj;
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", API.token);
+            var httpResponse = await httpClient.DeleteAsync($"{API.requestURI}todo-lists/{todoList.id}");
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Deleted list!", "Info", MessageBoxButton.OK);
+                loadTODOLists();
+            }
+            else
+            {
+                MessageBox.Show($"Coudn't delete this list. Try again later", "Error", MessageBoxButton.OK);
+            }
+        }
+        else
+        {
+            MessageBox.Show("Coudn't find this list", "Error", MessageBoxButton.OK);
         }
     }
 
+    private void AddList()
+    {
+        //TODO - Find better solution
+        Frame mainFrame = (Frame)Application.Current.MainWindow.FindName("MainFrame");
+        mainFrame.Content = new AddList(new AddListController());
+    }
+    
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

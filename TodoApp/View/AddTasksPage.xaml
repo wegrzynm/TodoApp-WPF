@@ -5,8 +5,30 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:TodoApp.View"
       mc:Ignorable="d"
-      Title="AddTasksPage" Height="450" Width="800">
+      Title="AddTasksPage" Height="450" Width="300">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
         
+        <Button Content="Go back" Command="{Binding GoBackCommand}"></Button>
+        <StackPanel Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label HorizontalAlignment="Center" Content="Task name:" FontSize="20"/>
+                <TextBox Grid.Row="1" Text="{Binding Task.task}" VerticalContentAlignment="Center" FontSize="20"></TextBox>
+                
+                <Label Grid.Row="2" HorizontalAlignment="Center" Content="Due date(You can leave empty):" FontSize="20"/>
+                <TextBox Grid.Row="3" Text="{Binding Task.dueDate}" VerticalContentAlignment="Center" FontSize="20"></TextBox>
+            </Grid>
+        </StackPanel>
+        <Button Grid.Row="2" Content="Add new Task!" Command="{Binding AddNewTaskCommand}"></Button>
     </Grid>
 </Page>

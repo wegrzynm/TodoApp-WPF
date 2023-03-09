@@ -28,3 +28,9 @@ C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\obj\Debug\net6.0-windows\View\
 C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\obj\Debug\net6.0-windows\View\TasksPage.baml
 C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\obj\Debug\net6.0-windows\TodoApp.csproj.CopyComplete
+C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\obj\Debug\net6.0-windows\View\AddListPage.g.cs
+C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\obj\Debug\net6.0-windows\View\AddListPage.baml
+C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\obj\Debug\net6.0-windows\View\AddTasksPage.g.cs
+C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\obj\Debug\net6.0-windows\View\AddTasksPage.baml
+C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\obj\Debug\net6.0-windows\Styles\Button.baml
+C:\Users\Mateusz\source\repos\WPF\TodoApp\TodoApp\obj\Debug\net6.0-windows\App.baml

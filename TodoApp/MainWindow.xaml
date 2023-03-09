@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controller="clr-namespace:TodoApp.Controller"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="300">
+        Title="TODO App" Height="400" Width="500">
     <Window.DataContext>
         <controller:LoginController/>
     </Window.DataContext>

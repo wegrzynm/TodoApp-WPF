@@ -14,21 +14,12 @@
         </Grid.RowDefinitions>
         
         <Button Content="Go back" Command="{Binding GoBackCommand}"/>
-        
-        <StackPanel Grid.Row="1" Height="100*">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50*"/>
-                    <RowDefinition Height="50*"/>
-                </Grid.RowDefinitions>
-                
-                <Label Grid.Row="0" Content="Add new List title" VerticalAlignment="Center" HorizontalAlignment="Center" Height="100*"></Label>
-                
-                <TextBox Grid.Row="1"  Width="100*" Height="100*" FontSize="30"/>
-            </Grid>
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <TextBlock FontSize="20" HorizontalAlignment="Center" Margin="0,20,0,0">Add new list: </TextBlock>
+            <TextBox  x:Name="ListName" Text="{Binding ListName}" FontSize="30" Margin="0,20,0,20"/>
         </StackPanel>
         
-        <Button Grid.Row="2" Content="Add new List" Command="{Binding GoBackCommand}"/>
+        <Button Grid.Row="2" Content="Add new List" Command="{Binding CreateListCommand}"/>
         
         
     </Grid>

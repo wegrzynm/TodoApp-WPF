@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Security;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,13 +21,13 @@ public class LoginController
         set => this._username = "matzyn.yt@gmail.com";
     }
     
-    private string _password = "";
+    private string _password;
 
     public string Password
     {
         //temp
         get => this._password;
-        set => this._password = "admin123";
+        set => this._password = value;
     }
 
     private ICommand _loginCommand;
@@ -37,30 +38,39 @@ public class LoginController
         {
             if (_loginCommand == null)
             {
-                _loginCommand = new RelayCommand(
-                    param => this.Login()
-                );
+                _loginCommand = new RelayCommand(this.Login);
             }
             return _loginCommand;
         }
     }
-    private async void Login()
+    private async void Login(object obj)
     {
-        var httpClient = new HttpClient();
-        var httpContent = new StringContent($"{{\"username\": \"{Username}\", \"password\": \"{Password}\"}}", Encoding.UTF8, "application/json");
-        var httpResponse = await httpClient.PostAsync($"{API.requestURI}login_check", httpContent);
-
-        if (httpResponse.IsSuccessStatusCode)
+        if (obj is PasswordBox)
         {
-            var responseContent = await httpResponse.Content.ReadAsStringAsync();
-             API.token = responseContent.Substring(10, 500);
-             NavigateToTODOListsView();
+            PasswordBox password = (PasswordBox)obj;
+            Password = password.Password;
+
+            var httpClient = new HttpClient();
+            var httpContent = new StringContent($"{{\"username\": \"{Username}\", \"password\": \"{Password}\"}}", Encoding.UTF8, "application/json");
+            var httpResponse = await httpClient.PostAsync($"{API.requestURI}login_check", httpContent);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                var responseContent = await httpResponse.Content.ReadAsStringAsync();
+                API.token = responseContent.Substring(10, 500);
+                NavigateToTODOListsView();
+            }
+            else
+            {
+                //MessageBox.Show($"Status code: {httpResponse.StatusCode}, Reason phrase: {httpResponse.ReasonPhrase}", "Error", MessageBoxButton.OK);
+                MessageBox.Show($"Invalid username or password!", "Error", MessageBoxButton.OK);
+            }
         }
         else
         {
-            //MessageBox.Show($"Status code: {httpResponse.StatusCode}, Reason phrase: {httpResponse.ReasonPhrase}", "Error", MessageBoxButton.OK);
-            MessageBox.Show($"Invalid username or password!", "Error", MessageBoxButton.OK);
+            MessageBox.Show("Try again later!", "Error", MessageBoxButton.OK);
         }
+       
     }
     private void NavigateToTODOListsView()
     {
