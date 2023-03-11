@@ -16,16 +16,14 @@ public class LoginController
 
     public string Username
     {
-        //temp
         get => this._username;
-        set => this._username = "matzyn.yt@gmail.com";
+        set => this._username = value;
     }
     
     private string _password;
 
     public string Password
     {
-        //temp
         get => this._password;
         set => this._password = value;
     }
